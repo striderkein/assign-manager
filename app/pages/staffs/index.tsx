@@ -1,14 +1,14 @@
 import { Suspense } from "react"
 import { Head, Link, usePaginatedQuery, useRouter, BlitzPage, Routes } from "blitz"
 import Layout from "app/core/layouts/Layout"
-import getStaff from "app/staff/queries/getStaff"
+import getStaff from "app/staff/queries/getStaffs"
 
 const ITEMS_PER_PAGE = 100
 
-export const StaffList = () => {
+export const StaffsList = () => {
   const router = useRouter()
   const page = Number(router.query.page) || 0
-  const [{ staff, hasMore }] = usePaginatedQuery(getStaff, {
+  const [{ staffs, hasMore }] = usePaginatedQuery(getStaff, {
     orderBy: { id: "asc" },
     skip: ITEMS_PER_PAGE * page,
     take: ITEMS_PER_PAGE,
@@ -20,7 +20,7 @@ export const StaffList = () => {
   return (
     <div>
       <ul>
-        {staff.map((staff) => (
+        {staffs.map((staff) => (
           <li key={staff.id}>
             <Link href={Routes.ShowStaffPage({ staffId: staff.id })}>
               <a>{staff.name}</a>
@@ -54,7 +54,7 @@ const StaffPage: BlitzPage = () => {
         </p>
 
         <Suspense fallback={<div>Loading...</div>}>
-          <StaffList />
+          <StaffsList />
         </Suspense>
       </div>
     </>

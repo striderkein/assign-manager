@@ -1,7 +1,7 @@
 import { Suspense } from "react"
 import { Head, Link, useRouter, useQuery, useMutation, useParam, BlitzPage, Routes } from "blitz"
 import Layout from "app/core/layouts/Layout"
-import getStaff from "app/staff/queries/getStaff"
+import getStaff from "app/staff/queries/getStaffs"
 import updateStaff from "app/staff/mutations/updateStaff"
 import { StaffForm, FORM_ERROR } from "app/staff/components/StaffForm"
 
@@ -26,7 +26,7 @@ export const EditStaff = () => {
 
       <div>
         <h1>Edit Staff {staff.id}</h1>
-        <pre>{JSON.stringify(staff)}</pre>
+        {/* <pre>{JSON.stringify(staff)}</pre> */}
 
         <StaffForm
           submitText="Update Staff"

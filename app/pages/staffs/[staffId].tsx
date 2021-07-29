@@ -28,7 +28,7 @@ export const Staff = () => {
         </ul>
         {/*
         <ul>
-          {StaffList.map((staff) => {
+          {StaffsList.map((staff) => {
             <li key={staff.id}>
               {staff.name} : {staff.cost}
             </li>
