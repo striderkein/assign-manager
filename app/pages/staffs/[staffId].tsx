@@ -44,7 +44,7 @@ export const Staff = () => {
           onClick={async () => {
             if (window.confirm("This will be deleted")) {
               await deleteStaffMutation({ id: staff.id })
-              router.push(Routes.StaffPage())
+              router.push(Routes.StaffsPage())
             }
           }}
           style={{ marginLeft: "0.5rem" }}
@@ -60,7 +60,7 @@ const ShowStaffPage: BlitzPage = () => {
   return (
     <div>
       <p>
-        <Link href={Routes.StaffPage()}>
+        <Link href={Routes.StaffsPage()}>
           <a>Staff</a>
         </Link>
       </p>

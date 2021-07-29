@@ -64,7 +64,7 @@ const EditStaffPage: BlitzPage = () => {
       </Suspense>
 
       <p>
-        <Link href={Routes.StaffPage()}>
+        <Link href={Routes.StaffsPage()}>
           <a>Staff</a>
         </Link>
       </p>

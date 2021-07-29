@@ -39,7 +39,7 @@ export const StaffsList = () => {
   )
 }
 
-const StaffPage: BlitzPage = () => {
+const StaffsPage: BlitzPage = () => {
   return (
     <>
       <Head>
@@ -61,7 +61,7 @@ const StaffPage: BlitzPage = () => {
   )
 }
 
-StaffPage.authenticate = true
-StaffPage.getLayout = (page) => <Layout>{page}</Layout>
+StaffsPage.authenticate = true
+StaffsPage.getLayout = (page) => <Layout>{page}</Layout>
 
-export default StaffPage
+export default StaffsPage
