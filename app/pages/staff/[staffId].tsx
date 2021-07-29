@@ -13,14 +13,29 @@ export const Staff = () => {
   return (
     <>
       <Head>
-        <title>Staff {staff.id}</title>
+        <title>Staff {staff.staff[0].id}</title>
       </Head>
 
       <div>
-        <h1>Staff {staff.id}</h1>
-        <pre>{JSON.stringify(staff, null, 2)}</pre>
-
-        <Link href={Routes.EditStaffPage({ staffId: staff.id })}>
+        {console.log(`staff: ${JSON.stringify(staff)}`)}
+        {/* <h1>Staff {staff.staff[0].id}</h1> */}
+        {/* <pre>{JSON.stringify(staff, null, 2)}</pre> */}
+        <h1>スタッフID: {staff.staff[0].id}</h1>
+        <ul>
+          <li>氏名: {staff.staff[0].name}</li>
+          <li>単価: {staff.staff[0].cost}</li>
+          <li>稼働率: {staff.staff[0].utilization}</li>
+        </ul>
+        {/*
+        <ul>
+          {StaffList.map((staff) => {
+            <li key={staff.id}>
+              {staff.name} : {staff.cost}
+            </li>
+          })}
+        </ul>
+        */}
+        <Link href={Routes.EditStaffPage({ staffId: staff.staff[0].id })}>
           <a>Edit</a>
         </Link>
 

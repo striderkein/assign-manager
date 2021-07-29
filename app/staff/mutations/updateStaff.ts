@@ -5,6 +5,8 @@ import { z } from "zod"
 const UpdateStaff = z.object({
   id: z.number(),
   name: z.string(),
+  cost: z.number(),
+  utilization: z.number(),
 })
 
 export default resolver.pipe(
