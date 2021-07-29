@@ -27,6 +27,7 @@ export const Question = () => {
       </Head>
 
       <div>
+        {console.debug(`question: ${JSON.stringify(question)}`)}
         <h1>{question.name}</h1>
         {/* <pre>{JSON.stringify(question, null, 2)}</pre> */}
         <ul>

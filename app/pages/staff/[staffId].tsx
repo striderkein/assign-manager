@@ -8,23 +8,23 @@ export const Staff = () => {
   const router = useRouter()
   const staffId = useParam("staffId", "number")
   const [deleteStaffMutation] = useMutation(deleteStaff)
-  const [staff] = useQuery(getStaff, { id: staffId })
+  const [staff, { refetch }] = useQuery(getStaff, { id: staffId })
 
   return (
     <>
       <Head>
-        <title>Staff {staff.staff[0].id}</title>
+        <title>Staff {staff.id}</title>
       </Head>
 
       <div>
-        {console.log(`staff: ${JSON.stringify(staff)}`)}
+        {console.debug(`staff: ${JSON.stringify(staff)}`)}
         {/* <h1>Staff {staff.staff[0].id}</h1> */}
         {/* <pre>{JSON.stringify(staff, null, 2)}</pre> */}
-        <h1>スタッフID: {staff.staff[0].id}</h1>
+        <h1>スタッフID: {staff.id}</h1>
         <ul>
-          <li>氏名: {staff.staff[0].name}</li>
-          <li>単価: {staff.staff[0].cost}</li>
-          <li>稼働率: {staff.staff[0].utilization}</li>
+          <li>氏名: {staff.name}</li>
+          <li>単価: {staff.cost}</li>
+          <li>稼働率: {staff.utilization}</li>
         </ul>
         {/*
         <ul>
@@ -35,7 +35,7 @@ export const Staff = () => {
           })}
         </ul>
         */}
-        <Link href={Routes.EditStaffPage({ staffId: staff.staff[0].id })}>
+        <Link href={Routes.EditStaffPage({ staffId: staff.id })}>
           <a>Edit</a>
         </Link>
 
