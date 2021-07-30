@@ -43,16 +43,17 @@ const ProjectsPage: BlitzPage = () => {
   return (
     <>
       <Head>
-        <title>Projects</title>
+        <title>案件一覧</title>
       </Head>
 
       <div>
         <p>
           <Link href={Routes.NewProjectPage()}>
-            <a>Create Project</a>
+            <a>案件を作成する</a>
           </Link>
         </p>
 
+        <h1>案件</h1>
         <Suspense fallback={<div>Loading...</div>}>
           <ProjectsList />
         </Suspense>
