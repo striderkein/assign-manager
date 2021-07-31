@@ -104,8 +104,6 @@ model Staff {
   updatedAt   DateTime @updatedAt
   cost        Int      @default(0)
   utilization Int      @default(0)
-  assign      Assign   @relation(fields: [assignId], references: [id])
-  assignId    Int
 }
 
 model Project {
@@ -125,5 +123,4 @@ model Assign {
   start       String
   end         String
   utilization Int
-  staffs      Staff[]
 }
