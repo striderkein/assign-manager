@@ -9,6 +9,7 @@ export const StaffsList = () => {
   const router = useRouter()
   const page = Number(router.query.page) || 0
   const [{ staffs, hasMore }] = usePaginatedQuery(getStaff, {
+    where: { utilization: { lt: 100 } },
     orderBy: { id: "asc" },
     skip: ITEMS_PER_PAGE * page,
     take: ITEMS_PER_PAGE,
