@@ -9,6 +9,7 @@ export const StaffsList = () => {
   const router = useRouter()
   const page = Number(router.query.page) || 0
   const [{ staffs, hasMore }] = usePaginatedQuery(getStaff, {
+    // FIXME: ここに where を書いてしまうと「スタッフ一覧」表示にも反映されてしまう
     where: { utilization: { lt: 100 } },
     orderBy: { id: "asc" },
     skip: ITEMS_PER_PAGE * page,
