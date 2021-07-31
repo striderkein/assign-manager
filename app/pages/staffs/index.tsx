@@ -62,6 +62,8 @@ export const StaffsFilteredList = () => {
               <a>{staff.name}</a>
             </Link>
             <span>: 稼働率: {staff.utilization} %</span>
+            <button>increment</button>
+            <button>assign</button>
           </li>
         ))}
       </ul>
