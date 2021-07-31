@@ -104,7 +104,7 @@ model Staff {
   updatedAt   DateTime @updatedAt
   cost        Int      @default(0)
   utilization Int      @default(0)
-  assigns     Assign[] @relation(fields: [assignId], references: [id])
+  assign      Assign   @relation(fields: [assignId], references: [id])
   assignId    Int
 }
 

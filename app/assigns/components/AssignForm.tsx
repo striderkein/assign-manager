@@ -19,8 +19,9 @@ export function AssignForm<S extends z.ZodType<any, any>>(props: FormProps<S>) {
       />
       <ul>
         {/* <li><input type="checkbox">{StaffsList[0]}</input></li> */}
-        <Suspense fallback={<div>Loading...</div>}></Suspense>
-        <StaffsList />
+        <Suspense fallback={<div>Loading...</div>}>
+          <StaffsList />
+        </Suspense>
       </ul>
     </Form>
   )
