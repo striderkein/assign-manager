@@ -1,6 +1,6 @@
 import { Form, FormProps } from "app/core/components/Form"
 import { LabeledTextField } from "app/core/components/LabeledTextField"
-import { StaffsList } from "app/pages/staffs"
+import { StaffsFilteredList } from "app/pages/staffs"
 import { Suspense } from "react"
 import { z } from "zod"
 export { FORM_ERROR } from "app/core/components/Form"
@@ -22,7 +22,7 @@ export function AssignForm<S extends z.ZodType<any, any>>(props: FormProps<S>) {
       <ul>
         {/* <li><input type="checkbox">{StaffsList[0]}</input></li> */}
         <Suspense fallback={<div>Loading...</div>}>
-          <StaffsList />
+          <StaffsFilteredList />
         </Suspense>
       </ul>
     </Form>
