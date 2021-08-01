@@ -126,7 +126,7 @@ model Assign {
   updatedAt   DateTime @updatedAt
   start       String
   end         String
-  utilization Int
+  utilization Int?
   project     Project?
   staffs      Staff[]
 }
