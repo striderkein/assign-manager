@@ -58,7 +58,7 @@ const ProjectsSelectBox = () => {
 
   return (
     <div>
-      <select onChange={(e) => setProject(Number(e.target.value))}>
+      <select onChange={(e) => setProject(Number(e.target.value))} defaultValue="0" >
         {projects.map((project) => (
           <option key={project.id} value={project.id}>
             {project.name}
