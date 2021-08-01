@@ -1,13 +1,51 @@
 import { Head, Link, usePaginatedQuery, useRouter, BlitzPage, Routes } from "blitz"
 import { Form, FormProps } from "app/core/components/Form"
 import { LabeledTextField } from "app/core/components/LabeledTextField"
-import { StaffsFilteredList } from "app/pages/staffs"
 import { Suspense } from "react"
 import { z } from "zod"
 export { FORM_ERROR } from "app/core/components/Form"
+import getStaff from "app/staff/queries/getStaffs"
 import getProjects from "app/projects/queries/getProjects"
 
 const ITEMS_PER_PAGE = 100
+
+export const StaffsFilteredList = () => {
+  const router = useRouter()
+  const page = Number(router.query.page) || 0
+  const [{ staffs, hasMore }] = usePaginatedQuery(getStaff, {
+    where: { utilization: { lt: 100 } },
+    orderBy: { id: "asc" },
+    skip: ITEMS_PER_PAGE * page,
+    take: ITEMS_PER_PAGE,
+  })
+
+  const goToPreviousPage = () => router.push({ query: { page: page - 1 } })
+  const goToNextPage = () => router.push({ query: { page: page + 1 } })
+
+  return (
+    <div>
+      <ul>
+        {staffs.map((staff) => (
+          <li key={staff.id}>
+            <Link href={Routes.ShowStaffPage({ staffId: staff.id })}>
+              <a>{staff.name}</a>
+            </Link>
+            <span>: 稼働率: {staff.utilization} %</span>
+            <button>increment</button>
+            <button>assign</button>
+          </li>
+        ))}
+      </ul>
+
+      <button disabled={page === 0} onClick={goToPreviousPage}>
+        Previous
+      </button>
+      <button disabled={!hasMore} onClick={goToNextPage}>
+        Next
+      </button>
+    </div>
+  )
+}
 
 const ProjectsSelectBox = () => {
   const router = useRouter()
