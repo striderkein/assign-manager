@@ -9,7 +9,10 @@ const GetAssign = z.object({
 
 export default resolver.pipe(resolver.zod(GetAssign), resolver.authorize(), async ({ id }) => {
   // TODO: in multi-tenant app, you must add validation to ensure correct tenant
-  const assign = await db.assign.findFirst({ where: { id } })
+  const assign = await db.assign.findFirst({
+    where: { id },
+    include: { project: true },
+  })
 
   if (!assign) throw new NotFoundError()
 

@@ -17,7 +17,7 @@ const NewAssignPage: BlitzPage = () => {
         //  - Tip: extract mutation's schema into a shared `validations.ts` file and
         //         then import and use it here
         // schema={CreateAssign}
-        // initialValues={{}}
+        initialValues={{ project: {}, staffs: [] }}
         onSubmit={async (values) => {
           try {
             const assign = await createAssignMutation(values)
