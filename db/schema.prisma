@@ -104,6 +104,8 @@ model Staff {
   updatedAt   DateTime @updatedAt
   cost        Int      @default(0)
   utilization Int      @default(0)
+  Assign      Assign?  @relation(fields: [assignId], references: [id])
+  assignId    Int?
 }
 
 model Project {
@@ -114,6 +116,8 @@ model Project {
   budget    Int
   start     String
   end       String
+  assign    Assign?  @relation(fields: [assignId], references: [id])
+  assignId  Int?
 }
 
 model Assign {
@@ -123,4 +127,6 @@ model Assign {
   start       String
   end         String
   utilization Int
+  project     Project?
+  staffs      Staff[]
 }
