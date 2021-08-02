@@ -11,7 +11,7 @@ export default resolver.pipe(resolver.zod(GetAssign), resolver.authorize(), asyn
   // TODO: in multi-tenant app, you must add validation to ensure correct tenant
   const assign = await db.assign.findFirst({
     where: { id },
-    include: { project: true },
+    include: { staffs: true },
   })
 
   if (!assign) throw new NotFoundError()

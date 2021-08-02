@@ -3,12 +3,23 @@ import { Head, Link, useRouter, useQuery, useParam, BlitzPage, useMutation, Rout
 import Layout from "app/core/layouts/Layout"
 import getAssign from "app/assigns/queries/getAssign"
 import deleteAssign from "app/assigns/mutations/deleteAssign"
+import updateStaf from "app/staff/mutations/updateStaff"
 
 export const Assign = () => {
   const router = useRouter()
   const assignId = useParam("assignId", "number")
   const [deleteAssignMutation] = useMutation(deleteAssign)
-  const [assign] = useQuery(getAssign, { id: assignId })
+  const [assign, { refetch }] = useQuery(getAssign, { id: assignId })
+  const [updateStaffMutation] = useMutation(updateStaf)
+
+  const handleUtilization = async (id: number) => {
+    try {
+      await updateStaffMutation({ id })
+      refetch()
+    } catch (error) {
+      alert("Error updating staff " + JSON.stringify(error, null, 2))
+    }
+  }
 
   return (
     <>
@@ -19,6 +30,11 @@ export const Assign = () => {
       <div>
         <h1>Assign {assign.id}</h1>
         <pre>{JSON.stringify(assign, null, 2)}</pre>
+        {assign.staffs.map((staff) => (
+          <li key={staff.id}>
+            <button onClick={() => handleUtilization(staff.id)}>稼働率アップ</button>
+          </li>
+        ))}
 
         <Link href={Routes.EditAssignPage({ assignId: assign.id })}>
           <a>Edit</a>

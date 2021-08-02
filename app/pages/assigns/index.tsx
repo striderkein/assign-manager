@@ -23,7 +23,7 @@ export const AssignsList = () => {
         {assigns.map((assign) => (
           <li key={assign.id}>
             <Link href={Routes.ShowAssignPage({ assignId: assign.id })}>
-              <a>{assign.name}</a>
+              <a>{assign.id}</a>
             </Link>
           </li>
         ))}

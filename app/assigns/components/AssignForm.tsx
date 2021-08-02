@@ -1,4 +1,4 @@
-import { Head, Link, usePaginatedQuery, useRouter, BlitzPage, Routes } from "blitz"
+import { Head, Link, usePaginatedQuery, useRouter, BlitzPage, Routes, useMutation } from "blitz"
 import { Form, FormProps } from "app/core/components/Form"
 import { LabeledTextField } from "app/core/components/LabeledTextField"
 import { Suspense } from "react"
@@ -6,8 +6,11 @@ import { z } from "zod"
 export { FORM_ERROR } from "app/core/components/Form"
 import getStaff from "app/staff/queries/getStaffs"
 import getProjects from "app/projects/queries/getProjects"
+import updateStaff from "app/staff/mutations/updateStaff"
 
 const ITEMS_PER_PAGE = 100
+let selectedProjectId = 0
+let totalUtilization = 0
 
 export const StaffsFilteredList = () => {
   const router = useRouter()
@@ -25,13 +28,13 @@ export const StaffsFilteredList = () => {
   return (
     <div>
       <ul>
-        {staffs.map((staff) => (
+        {staffs.map((staff, i) => (
           <li key={staff.id}>
             <Link href={Routes.ShowStaffPage({ staffId: staff.id })}>
               <a>{staff.name}</a>
             </Link>
             <span>: 稼働率: {staff.utilization} %</span>
-            <button>increment</button>
+            <button onClick={(e) => handleUtilization(e, staff.id, this)}>increment</button>
             <button>assign</button>
           </li>
         ))}
@@ -58,7 +61,7 @@ const ProjectsSelectBox = () => {
 
   return (
     <div>
-      <select onChange={(e) => setProject(Number(e.target.value))} defaultValue="0" >
+      <select onChange={(e) => setProject(Number(e.target.value))} defaultValue="0">
         {projects.map((project) => (
           <option key={project.id} value={project.id}>
             {project.name}
@@ -69,10 +72,28 @@ const ProjectsSelectBox = () => {
   )
 }
 
+const handleUtilization = async (e, staffId: number, assign) => {
+  // TODO: impl
+  e.preventDefault()
+  // const [updateStaffMutation] = useMutation(updateStaff)
+
+  console.debug(`increment clicked! staffId: ${staffId}, assign: ${assign}`)
+  try {
+    // await updateStaffMutation({ id: staffId })
+    // TODO: impl
+    console.debug(`staff-ID: ${staffId}`)
+  } catch (error) {
+    alert("Error updating staff " + JSON.stringify(error, null, 2))
+  }
+  totalUtilization++
+  console.debug(`totalUtilization: ${totalUtilization}`)
+}
+
 const setProject = async (id: number) => {
   try {
     // TODO: impl
     console.debug(`project-id: ${id}`)
+    selectedProjectId = id
   } catch (error) {
     alert("Error set project " + JSON.stringify(error, null, 2))
   }
@@ -81,9 +102,9 @@ const setProject = async (id: number) => {
 export function AssignForm<S extends z.ZodType<any, any>>(props: FormProps<S>) {
   return (
     <Form<S> {...props}>
-      {/* <LabeledTextField name="start" label="期間（開始）" placeholder="YYYY-MM-DD" /> */}
-      {/* <LabeledTextField name="end" label="期間（終了）" placeholder="YYYY-MM-DD" /> */}
-      {/* <LabeledTextField name="utilization" label="稼働率（%）" placeholder="50" type="number" /> */}
+      <LabeledTextField name="start" label="期間（開始）" placeholder="YYYY-MM-DD" />
+      <LabeledTextField name="end" label="期間（終了）" placeholder="YYYY-MM-DD" />
+      <LabeledTextField name="utilization" label="稼働率（%）" placeholder="50" type="number" />
       {/*
       <LabeledTextField
         name="staffs.0.name"
@@ -98,7 +119,6 @@ export function AssignForm<S extends z.ZodType<any, any>>(props: FormProps<S>) {
         </Suspense>
       </ul>
       <ul>
-        {/* <li><input type="checkbox">{StaffsList[0]}</input></li> */}
         <Suspense fallback={<div>Loading...</div>}>
           <StaffsFilteredList />
         </Suspense>
