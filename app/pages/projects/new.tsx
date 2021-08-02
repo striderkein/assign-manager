@@ -9,10 +9,10 @@ const NewProjectPage: BlitzPage = () => {
 
   return (
     <div>
-      <h1>Create New Project</h1>
+      <h1>案件新規作成</h1>
 
       <ProjectForm
-        submitText="Create Project"
+        submitText="案件を作成する"
         // TODO use a zod schema for form validation
         //  - Tip: extract mutation's schema into a shared `validations.ts` file and
         //         then import and use it here
@@ -33,7 +33,7 @@ const NewProjectPage: BlitzPage = () => {
 
       <p>
         <Link href={Routes.ProjectsPage()}>
-          <a>Projects</a>
+          <a>案件一覧</a>
         </Link>
       </p>
     </div>

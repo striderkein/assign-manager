@@ -25,6 +25,7 @@ export const StaffsList = () => {
             <Link href={Routes.ShowStaffPage({ staffId: staff.id })}>
               <a>{staff.name}</a>
             </Link>
+            <span>: 稼働率: {staff.utilization} %</span>
           </li>
         ))}
       </ul>

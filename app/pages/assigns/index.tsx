@@ -1,14 +1,14 @@
 import { Suspense } from "react"
 import { Head, Link, usePaginatedQuery, useRouter, BlitzPage, Routes } from "blitz"
 import Layout from "app/core/layouts/Layout"
-import getProjects from "app/projects/queries/getProjects"
+import getAssigns from "app/assigns/queries/getAssigns"
 
 const ITEMS_PER_PAGE = 100
 
-export const ProjectsList = () => {
+export const AssignsList = () => {
   const router = useRouter()
   const page = Number(router.query.page) || 0
-  const [{ projects, hasMore }] = usePaginatedQuery(getProjects, {
+  const [{ assigns, hasMore }] = usePaginatedQuery(getAssigns, {
     orderBy: { id: "asc" },
     skip: ITEMS_PER_PAGE * page,
     take: ITEMS_PER_PAGE,
@@ -20,10 +20,10 @@ export const ProjectsList = () => {
   return (
     <div>
       <ul>
-        {projects.map((project) => (
-          <li key={project.id}>
-            <Link href={Routes.ShowProjectPage({ projectId: project.id })}>
-              <a>{project.name}</a>
+        {assigns.map((assign) => (
+          <li key={assign.id}>
+            <Link href={Routes.ShowAssignPage({ assignId: assign.id })}>
+              <a>{assign.id}</a>
             </Link>
           </li>
         ))}
@@ -39,30 +39,29 @@ export const ProjectsList = () => {
   )
 }
 
-const ProjectsPage: BlitzPage = () => {
+const AssignsPage: BlitzPage = () => {
   return (
     <>
       <Head>
-        <title>案件一覧</title>
+        <title>Assigns</title>
       </Head>
 
       <div>
         <p>
-          <Link href={Routes.NewProjectPage()}>
-            <a>案件を作成する</a>
+          <Link href={Routes.NewAssignPage()}>
+            <a>Create Assign</a>
           </Link>
         </p>
 
-        <h1>案件</h1>
         <Suspense fallback={<div>Loading...</div>}>
-          <ProjectsList />
+          <AssignsList />
         </Suspense>
       </div>
     </>
   )
 }
 
-ProjectsPage.authenticate = true
-ProjectsPage.getLayout = (page) => <Layout>{page}</Layout>
+AssignsPage.authenticate = true
+AssignsPage.getLayout = (page) => <Layout>{page}</Layout>
 
-export default ProjectsPage
+export default AssignsPage
